@@ -34,3 +34,4 @@ class StateBot(ActivityHandler):
             usermode.email = turn_context.activity.text
             info = usermode.name + " " + usermode.phone + " " + usermode.email
             await turn_context.send_activity(info)
+            conmode.profile = EnumUser.name
