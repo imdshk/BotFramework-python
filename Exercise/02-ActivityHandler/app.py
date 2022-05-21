@@ -21,10 +21,10 @@ def messages():
     
     activity = Activity().deserialize(jsonMessage)
 
-    async def turnCall(turnContext):
-        await eBot.onTurn(turnContext)
+    async def turn_call(turn_context):
+        await eBot.on_turn(turn_context)
 
-    task = loop.create_task(botAdapter.process_activity(activity, "", turnCall))
+    task = loop.create_task(botAdapter.process_activity(activity, "", turn_call))
     loop.run_until_complete(task)
 
 if __name__ == "__main__":
