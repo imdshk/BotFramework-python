@@ -2,15 +2,15 @@ from flask import Flask, request, Response
 from botbuilder.schema import Activity
 from botbuilder.core import BotFrameworkAdapter, BotFrameworkAdapterSettings
 import asyncio
-from echoBot import EchoBot
+from bot import Bot
 
 app = Flask(__name__)
 loop = asyncio.get_event_loop()
 
+eBot = Bot()
+
 botAdapterSettings = BotFrameworkAdapterSettings("","")
 botAdapter = BotFrameworkAdapter(botAdapterSettings)
-
-eBot = EchoBot()
 
 @app.route("/api/messages", methods=["POST"])
 def messages():
@@ -22,7 +22,7 @@ def messages():
     activity = Activity().deserialize(jsonMessage)
 
     async def turnCall(turnContext):
-        await eBot.OnTurn(turnContext)
+        await eBot.onTurn(turnContext)
 
     task = loop.create_task(botAdapter.process_activity(activity, "", turnCall))
     loop.run_until_complete(task)
